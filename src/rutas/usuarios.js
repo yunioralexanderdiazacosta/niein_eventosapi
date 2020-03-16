@@ -34,7 +34,7 @@ const Usuario = require('../modelos/Usuario')
              })
          }
          else{
-             res.status(405).send('El correo electrónico ya se encuentra registrado')
+             res.status(400).json({error: 'El correo electrónico ya se encuentra registrado'})
          }
      })
      .catch(err => {
@@ -52,7 +52,7 @@ const Usuario = require('../modelos/Usuario')
      })
      .then(user => {
          if(!user){
-             res.status(405).send('Usuario y/o contraseña incorrectos')
+             res.status(400).json({ error:'Correo y/o contraseña incorrectos'})
          }
          else{
              if(bcrypt.compareSync(req.body.clave, user.clave)){
@@ -62,7 +62,7 @@ const Usuario = require('../modelos/Usuario')
                  res.json({ token: token })
              }
              else{
-                 res.status(405).send('Correo y/o contraseña incorrectos')
+                 res.status(400).json({ error:'Correo y/o contraseña incorrectos'})
              }
              
          }
